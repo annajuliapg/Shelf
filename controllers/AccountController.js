@@ -34,6 +34,23 @@ class AccountController {
         };
     };
 
+    async getAccount(request, response, next) {
+        try {
+            const id = request.params.id;
+
+            const results = await AccountService.getAccount(id);
+
+            if (!results) {
+                return response.status(404).json(results);
+            }
+
+            return response.status(200).json(results);
+
+        } catch (error) {
+            return response.status(422).send(error.message);
+        };
+    };
+
     async update(request, response, next) {
         try {
             const { body } = request;

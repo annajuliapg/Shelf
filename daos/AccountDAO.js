@@ -13,6 +13,28 @@ class AccountDAO {
         }
     };
 
+    async getAccount(id) {
+        try {
+            const conn = await connection();
+            const result = await conn.query(`
+                SELECT
+                    G.[idUsuario],
+                    G.[nomeUsuario],
+                    G.[nomeExibicao],
+                    G.[biografia],
+                    G.[email],
+                    R.[paginasLidas],
+                    R.[qtdLivrosLidos],
+                    R.[tempoTotalLeitura]
+                FROM [Usuario].[Geral] G
+                INNER JOIN [Usuario].[Resumo] R ON R.idUsuario = G.idUsuario WHERE G.idUsuario = ${id}
+            `);
+            return result.recordset[0];
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async update(idUsuario, updateData) {
         try {
 

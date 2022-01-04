@@ -12,6 +12,16 @@ class AccountService {
         };
     };
 
+    async getAccount(id) {
+        try {
+            const result = await AccountDAO.getAccount(id);
+            return result;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
     async update(idUsuario, updateData) {
         try {
             const result = await AccountDAO.update(idUsuario, updateData);
