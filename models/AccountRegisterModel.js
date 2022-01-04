@@ -4,7 +4,7 @@ const BadRequestError = require('../errors/BadRequestError');
 const passwordValidator = require('password-validator');
 const emailValidator = require('email-validator');
 
-class Register {
+class AccountRegisterModel {
     #nomeUsuario
     #nomeExibicao
     #biografia
@@ -75,6 +75,7 @@ class Register {
 
     #bodyValidator(body) {
         try {
+            
             const rules = {
                 nomeUsuario: ['required', 'string', 'regex:/^[a-zA-Zà-úÀ0-9 ]*$/'],
                 nomeExibicao: ['required', 'string', 'regex:/^[a-zA-Zà-úÀ ]*$/'],
@@ -132,4 +133,4 @@ class Register {
 
 };
 
-module.exports = Register;
+module.exports = AccountRegisterModel;
