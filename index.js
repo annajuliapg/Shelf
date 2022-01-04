@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const config = require('./config');
 const loginRoutes = require('./routes/login');
 const accountRoutes = require('./routes/AccountRoutes');
-const usersRoutes = require('./routes/users');
-const definedDataBaseDataRoutes = require('./routes/DefinedDataBaseDataRoutes');
+const usuarioRoutes = require('./routes/UsuarioRoutes');
+// const definedDataBaseDataRoutes = require('./routes/DefinedDataBaseDataRoutes');
 const livrosRoutes = require('./routes/LivroRoutes');
 const { returnError } = require('./middleware/ErrorHandler');
 
@@ -16,9 +16,9 @@ app.use(express.json());
 app.use(cors({ origin: (origin, callback) => callback(null, true), credentials: true }));
 app.use(bodyParser.json());
 
-// app.use('/', loginRoutes.routes);
+app.use('/', loginRoutes.routes);
 app.use('/', accountRoutes.routes);
-// app.use('/', usersRoutes.routes);
+app.use('/', usuarioRoutes.routes);
 // app.use('/', definedDataBaseDataRoutes.routes);
 app.use('/', livrosRoutes.routes);
 app.use(returnError);
