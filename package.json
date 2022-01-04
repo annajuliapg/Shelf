@@ -1,0 +1,41 @@
+{
+  "name": "login-back-end",
+  "version": "1.0.0",
+  "description": "login-back-end",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "debug": "nodemon --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "connection": "node ./infrastructure/connection.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gabireze@bitbucket.org/projetofono/login-back-end.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/projetofono/login-back-end#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
+    "cookie": "^0.4.1",
+    "cors": "^2.8.5",
+    "cpf-cnpj-validator": "^1.0.3",
+    "dotenv": "^10.0.0",
+    "email-validator": "^2.0.4",
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "mssql": "^7.1.0",
+    "nodemailer": "^6.6.2",
+    "nodemailer-express-handlebars": "^4.0.0",
+    "password-validator": "^5.1.1",
+    "path": "^0.12.7",
+    "validatorjs": "^3.22.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
