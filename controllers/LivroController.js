@@ -13,9 +13,9 @@ class LivroController {
     try {
       const livro = new LivroModel(body);
      
-      const livroId = await LivroService.createLivro(livro);
+      const idLivro = await LivroService.createLivro(livro);
 
-      response.set('Location', config.url+`Livro/${livroId}`);
+      response.set('Location', config.url+`Livro/${idLivro}`);
 
       response.status(HttpStatusCodes.CREATED).end();
     }
@@ -36,9 +36,9 @@ class LivroController {
 
   async getLivroById(request, response, next) {
     try {
-      const livroId = request.params.id;
+      const idLivro = request.params.id;
 
-      const livro = await LivroService.getLivroById(livroId);
+      const livro = await LivroService.getLivroById(idLivro);
 
       response.status(HttpStatusCodes.OK).json(livro);
     } catch (error) {
@@ -48,13 +48,13 @@ class LivroController {
 
   async updateLivro(request, response, next) {
     try{
-      const livroId = request.params.id;
+      const idLivro = request.params.id;
 
       const { body } = request;
 
       const livro = new LivroModel(body);
 
-      await LivroService.updateLivro(livroId, livro);
+      await LivroService.updateLivro(idLivro, livro);
 
       response.status(HttpStatusCodes.NO_CONTENT).end();
     } catch (error) {
@@ -65,9 +65,9 @@ class LivroController {
 
   async deleteLivro(request, response, next) {
     try{
-      const livroId = request.params.id;
+      const idLivro = request.params.id;
 
-      await LivroService.deleteLivro(livroId);
+      await LivroService.deleteLivro(idLivro);
 
       response.status(HttpStatusCodes.NO_CONTENT).end();
     } catch (error) {

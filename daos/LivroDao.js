@@ -48,7 +48,7 @@ class LivroDao {
     }
   }
 
-  async updateLivro(livroId, livro) {
+  async updateLivro(idLivro, livro) {
     try {
       const conn = await connection();
 
@@ -56,7 +56,7 @@ class LivroDao {
 
       let generosQuery = livro.generos.join(';');
 
-      const query = `EXEC [Livro].[prc_UpdateLivro] ${livroId}, '${livro.nome}', ${livro.paginas}, ${livro.ano}, '${autoresQuery}', '${generosQuery}'`;
+      const query = `EXEC [Livro].[prc_UpdateLivro] ${idLivro}, '${livro.nome}', ${livro.paginas}, ${livro.ano}, '${autoresQuery}', '${generosQuery}'`;
 
       await conn.query(query);
 
@@ -66,11 +66,11 @@ class LivroDao {
     }
   }
 
-  async deleteLivro(livroId) {
+  async deleteLivro(idLivro) {
     try {
       const conn = await connection();
 
-      const query = `EXEC [Livro].[prc_DeleteLivro] ${livroId}`;
+      const query = `EXEC [Livro].[prc_DeleteLivro] ${idLivro}`;
 
       const result = await conn.query(query);
 

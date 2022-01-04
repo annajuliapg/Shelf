@@ -23,13 +23,13 @@ class LivroService {
     }
   }
 
-  async getLivroById(livroId) {
+  async getLivroById(idLivro) {
     try{
-      if(livroId === undefined || isNaN(livroId)) {
+      if(idLivro === undefined || isNaN(idLivro)) {
         throw new NotFoundError('Invalid Id');
       }
 
-      const livro = await LivroDao.getLivroById(livroId);
+      const livro = await LivroDao.getLivroById(idLivro);
 
       if(!livro) {
         throw new NotFoundError('Invalid Id');
@@ -42,15 +42,15 @@ class LivroService {
     }
   }
 
-  async updateLivro(livroId, livro) {
+  async updateLivro(idLivro, livro) {
     try {
-      if(livroId === undefined || isNaN(livroId)) {
+      if(idLivro === undefined || isNaN(idLivro)) {
         throw new NotFoundError('Invalid Id');
       }
       
-      const livroExists = await this.getLivroById(livroId);
+      const livroExists = await this.getLivroById(idLivro);
 
-      livroExists ? await LivroDao.updateLivro(livroId, livro) : () => {
+      livroExists ? await LivroDao.updateLivro(idLivro, livro) : () => {
         throw new NotFoundError('Invalid Id');
       };
 
@@ -63,15 +63,15 @@ class LivroService {
     }
   }
 
-  async deleteLivro(livroId, livro) {
+  async deleteLivro(idLivro, livro) {
     try {
-      if(livroId === undefined || isNaN(livroId)) {
+      if(idLivro === undefined || isNaN(idLivro)) {
         throw new NotFoundError('Invalid Id');
       }
       
-      const livroExists = await this.getLivroById(livroId);
+      const livroExists = await this.getLivroById(idLivro);
 
-      livroExists ? await LivroDao.deleteLivro(livroId) : () => {
+      livroExists ? await LivroDao.deleteLivro(idLivro) : () => {
         throw new NotFoundError('Invalid Id');
       };
 
