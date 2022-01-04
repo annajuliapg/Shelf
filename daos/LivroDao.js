@@ -4,83 +4,83 @@ const connection = require('../infrastructure/connection');
 const moment = require('moment');
 
 class LivroDao {
-  async createLivro(livro) {
-    try {
+    async createLivro(livro) {
+        try {
 
-      const conn = await connection();
+            const conn = await connection();
 
-      let autoresQuery = livro.autores.join(';');
+            let autoresQuery = livro.autores.join(';');
 
-      let generosQuery = livro.generos.join(';');
+            let generosQuery = livro.generos.join(';');
 
-      const query = `EXEC [Livro].[prc_InsertLivro] '${livro.nome}', ${livro.paginas}, ${livro.ano}, '${autoresQuery}', '${generosQuery}'`;
+            const query = `EXEC [Livro].[prc_InsertLivro] '${livro.nome}', ${livro.paginas}, ${livro.ano}, '${autoresQuery}', '${generosQuery}'`;
 
-      const result = await conn.query(query);
-    
-      const idLivro = result.recordset[0].idLivro;
+            const result = await conn.query(query);
 
-      return idLivro;
+            const idLivro = result.recordset[0].idLivro;
 
-    } catch (error) {
-      console.error(error);
-      throw error;
+            return idLivro;
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     }
-  }
 
-  async getLivros() {
-    const conn = await connection();
+    async getLivros() {
+        const conn = await connection();
 
-    const livroList = await conn.query(`SELECT * FROM Livro.vw_LivroCompleto`);
+        const livroList = await conn.query(`SELECT * FROM Livro.vw_LivroCompleto`);
 
-    return livroList.recordset;
-  }
-
-  async getLivroById(idLivro) {
-    const conn = await connection();
-
-    try {
-      const livro = await conn.query(`SELECT * FROM Livro.vw_LivroCompleto WHERE idLivro = ${idLivro}`);
-
-      return livro.recordset[0];
-    } catch (error) {
-      console.error(error);
-      throw error;
+        return livroList.recordset;
     }
-  }
 
-  async updateLivro(idLivro, livro) {
-    try {
-      const conn = await connection();
+    async getLivroById(idLivro) {
+        const conn = await connection();
 
-      let autoresQuery = livro.autores.join(';');
+        try {
+            const livro = await conn.query(`SELECT * FROM Livro.vw_LivroCompleto WHERE idLivro = ${idLivro}`);
 
-      let generosQuery = livro.generos.join(';');
-
-      const query = `EXEC [Livro].[prc_UpdateLivro] ${idLivro}, '${livro.nome}', ${livro.paginas}, ${livro.ano}, '${autoresQuery}', '${generosQuery}'`;
-
-      await conn.query(query);
-
-    } catch (error) {
-      console.error(error);
-      throw error;
+            return livro.recordset[0];
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     }
-  }
 
-  async deleteLivro(idLivro) {
-    try {
-      const conn = await connection();
+    async updateLivro(idLivro, livro) {
+        try {
+            const conn = await connection();
 
-      const query = `EXEC [Livro].[prc_DeleteLivro] ${idLivro}`;
+            let autoresQuery = livro.autores.join(';');
 
-      const result = await conn.query(query);
+            let generosQuery = livro.generos.join(';');
 
-      if (result.rowsAffected == 0) throw new NotFoundError('Invalid Id');
+            const query = `EXEC [Livro].[prc_UpdateLivro] ${idLivro}, '${livro.nome}', ${livro.paginas}, ${livro.ano}, '${autoresQuery}', '${generosQuery}'`;
 
-    } catch (error) {
-      console.error(error);
-      throw error;
+            await conn.query(query);
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     }
-  }
+
+    async deleteLivro(idLivro) {
+        try {
+            const conn = await connection();
+
+            const query = `EXEC [Livro].[prc_DeleteLivro] ${idLivro}`;
+
+            const result = await conn.query(query);
+
+            if (result.rowsAffected == 0) throw new NotFoundError('Invalid Id');
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
 
 }
 

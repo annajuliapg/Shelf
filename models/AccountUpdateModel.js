@@ -75,7 +75,7 @@ class AccountUpdateModel {
 
     #bodyValidator(body) {
         try {
-            
+
             const rules = {
                 nomeUsuario: ['required', 'string', 'regex:/^[a-zA-Zà-úÀ0-9 ]*$/'],
                 nomeExibicao: ['required', 'string', 'regex:/^[a-zA-Zà-úÀ ]*$/'],
