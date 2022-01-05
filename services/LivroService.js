@@ -3,6 +3,7 @@
 const LivroDao = require('../daos/LivroDao');
 const NotFoundError = require('../errors/NotFoundError');
 const UnprocessableEntityError = require('../errors/UnprocessableEntityError');
+const validateIds = require('../utils/validator');
 
 class LivroService {
     async createLivro(Livro) {
@@ -25,9 +26,7 @@ class LivroService {
 
     async getLivroById(idLivro) {
         try {
-            if (idLivro === undefined || isNaN(idLivro)) {
-                throw new NotFoundError('Invalid Id');
-            }
+            await validateIds(idLivro);
 
             const livro = await LivroDao.getLivroById(idLivro);
 
@@ -44,9 +43,7 @@ class LivroService {
 
     async updateLivro(idLivro, livro) {
         try {
-            if (idLivro === undefined || isNaN(idLivro)) {
-                throw new NotFoundError('Invalid Id');
-            }
+            await validateIds(idLivro);
 
             const livroExists = await this.getLivroById(idLivro);
 
@@ -65,9 +62,7 @@ class LivroService {
 
     async deleteLivro(idLivro, livro) {
         try {
-            if (idLivro === undefined || isNaN(idLivro)) {
-                throw new NotFoundError('Invalid Id');
-            }
+            await validateIds(idLivro);
 
             const livroExists = await this.getLivroById(idLivro);
 
