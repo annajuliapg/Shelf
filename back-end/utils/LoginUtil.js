@@ -62,7 +62,7 @@ class LoginUtil {
             });
             mailer.sendMail({
                 to: email,
-                from: `Sistema de Gestão de Exames Fonoaudiológicos <${config.mailConfig.auth.user}>`,
+                from: `Shelf <${config.mailConfig.auth.user}>`,
                 subject: 'Redefina sua senha',
                 template: 'auth/forgot_password',
                 context: context,
