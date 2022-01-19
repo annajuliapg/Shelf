@@ -6,9 +6,18 @@ const UnprocessableEntityError = require('../errors/UnprocessableEntityError');
 const validateIds = require('../utils/validator');
 
 class LivroService {
-    async createLivro(Livro) {
+    async createLivro(livro) {
         try {
-            return await LivroDao.createLivro(Livro);
+            return await LivroDao.createLivro(livro);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async createListaLivro(livros) {
+        try {
+            return await LivroDao.createListaLivro(livros);
         } catch (error) {
             console.error(error);
             throw error;

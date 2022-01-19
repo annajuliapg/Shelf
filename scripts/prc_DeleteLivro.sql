@@ -9,6 +9,7 @@ BEGIN TRY
 	DELETE FROM [Livro].[GrupoAutor] WHERE idLivro = @var_idLivro
 	DELETE FROM [Livro].[GrupoGenero] WHERE idLivro = @var_idLivro
 	DELETE FROM [Livro].[Geral] WHERE idLivro = @var_idLivro
+	DELETE FROM [Usuario].[Leituras] WHERE idLivro = @var_idLivro
 
     COMMIT TRAN
 END TRY

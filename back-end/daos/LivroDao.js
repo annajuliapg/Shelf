@@ -13,13 +13,40 @@ class LivroDao {
 
             let generosQuery = livro.generos.join(';');
 
+            console.log(`EXEC [Livro].[prc_InsertLivro] '${livro.nome}', ${livro.paginas}, ${livro.ano}, '${autoresQuery}', '${generosQuery}'`)
+
             const query = `EXEC [Livro].[prc_InsertLivro] '${livro.nome}', ${livro.paginas}, ${livro.ano}, '${autoresQuery}', '${generosQuery}'`;
 
             const result = await conn.query(query);
 
+            console.log(result);
+
             const idLivro = result.recordset[0].idLivro;
 
             return idLivro;
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async createListaLivro(livros) {
+        try {
+
+            const conn = await connection();
+
+            let query = ``
+
+            livros.forEach((livro) => {
+                let autoresQuery = livro.autores.join(';');
+
+                let generosQuery = livro.generos.join(';');
+
+                query += `EXEC [Livro].[prc_InsertLivro] '${livro.nome}', ${livro.paginas}, ${livro.ano}, '${autoresQuery}', '${generosQuery}'; `
+            })
+
+            return await conn.query(query);
 
         } catch (error) {
             console.error(error);

@@ -8,14 +8,27 @@ const config = require('../config');
 class LivroController {
 
     async createLivro(request, response, next) {
+        
         const { body } = request;
 
         try {
-            const livro = new LivroModel(body);
 
-            const idLivro = await LivroService.createLivro(livro);
+            if (body instanceof Array) {
 
-            response.set('Location', config.url + `Livro/${idLivro}`);
+                let listaLivros = [];
+
+                body.forEach((livroObject) => {
+                    const livro = new LivroModel(livroObject);
+                    listaLivros.push(livro);
+                })
+
+                await LivroService.createListaLivro(listaLivros);
+
+            } else {
+                const livro = new LivroModel(body);
+
+                await LivroService.createLivro(livro);
+            }
 
             response.status(HttpStatusCodes.CREATED).end();
         }

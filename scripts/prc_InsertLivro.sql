@@ -37,7 +37,6 @@ BEGIN TRY
 	
 			SET @idAutor = (SELECT idAutor FROM [Livro].[Autor] WHERE nome = @nomeAutor)
 	
-
 			IF @idAutor IS NULL
 				BEGIN 
 					INSERT INTO [Livro].[Autor] values (@nomeAutor)
